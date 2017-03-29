@@ -3,67 +3,10 @@ Positibe Publishable Component
 
 This library provide you some traits to be used in doctrine entities that implement `Symfony\Cmf\Bundle\CoreBundle\Translatable\TranslatableInterface` and `Symfony\Cmf\Bundle\CoreBundle\PublishWorkflow\PublishTimePeriodInterface`.
 
-StatePublishableTrait
----------------------
-
-This trait has the default mapping for a Entity that implement `PublishableInterface`.
-
-    [php]
-    namespace Positibe\Component\Publishable\Entity;
-
-    trait PublishableTrait
-    {
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(name="publishable", type="boolean")
-         */
-        protected $publishable = true;
-
-        public function isPublishable()
-        {
-            return $this->publishable;
-        }
-
-        public function setPublishable($boolean)
-        {
-            $this->publishable = $boolean;
-        }
-    }
-
-You can use this Trait with a Publishable content with multiple states like `draft`, `published` and `unpublished`:
-
-    [yaml]
-    # app/config/config.yml
-    # ...
-    framework:
-        workflows:
-            publishable:
-                type: 'state_machine' # or 'workflow'
-                marking_store:
-                    type: 'single_state' # or 'multiple_state'
-                    arguments:
-                        - 'state'
-                supports:
-                    - AppBundle\Entity\Post
-                places:
-                    - draft
-                    - published
-                    - unpublished
-                transitions:
-                    to_publish:
-                        from: draft
-                        to:   published
-                    to_unpublish:
-                        from: published
-                        to:   unpublished
-                    republish:
-                        from: unpublished
-                        to:   published
 PublishableTrait
 ----------------
 
-This trait has the default mapping for a Entity that implement `PublishableInterface`.
+This trait has the default mapping for a Entity that implement `TranslatableInterface`.
 
     [php]
     namespace Positibe\Component\Publishable\Entity;
